@@ -11,21 +11,26 @@ bot.on('ready', () => {
 const stenoGroups = /`([A-Z#\d\/ \*-]+)`/g
 
 bot.on('message', message => {
-  const content = message.content
-  const channel = message.channel.name
-  const summoned = channel === 'learners' || content.startsWith('!')
-  let steno = content.match(stenoGroups)
-  if (steno && summoned) {
-    if (Array.isArray(steno)) {
-      steno = steno.join(' ')
+  try {
+    const content = message.content
+    const channel = message.channel.name
+    const summoned = channel === 'learners' || content.startsWith('!')
+    let steno = content.match(stenoGroups)
+    if (steno && summoned) {
+      if (Array.isArray(steno)) {
+        steno = steno.join(' ')
+      }
+      console.log('Processing ', steno)
+      const buffer = stenoToBuffer(steno)
+      if (buffer) {
+        message.channel.sendFile(buffer)
+      } else {
+        message.react('❓')
+      }
     }
-    console.log('Processing ', steno)
-    const buffer = stenoToBuffer(steno)
-    if (buffer) {
-      message.channel.sendFile(buffer)
-    } else {
-      message.react('❓')
-    }
+  } catch (e) {
+    console.log('Something went wrong while handling a message.')
+    console.err(e)
   }
 })
 
