@@ -1,0 +1,55 @@
+{ "extends": "eslint:recommended"
+, "rules":
+  { "max-len":
+    [ 2
+    , 120
+    , 2
+    ]
+  , "no-case-declarations": 0
+  , "no-fallthrough": 0
+  , "indent":
+    [ 2
+    , 2
+    , { "SwitchCase": 1
+      }
+    ]
+  , "quotes":
+    [ 1
+    , "single"
+    , "avoid-escape"
+    ]
+  , "semi":
+    [ "warn"
+    , "never"
+    ]
+  , "no-unexpected-multiline": 1
+  , "comma-style":
+    [ 2
+    , "first"
+    ]
+  , "comma-spacing": 2
+  , "operator-linebreak":
+    [ 2
+    , "after"
+    ]
+  , "keyword-spacing":
+    [ "error"
+    , "overrides":
+      { "throw":
+        { "after": false
+        }
+      }
+    ]
+  }
+, "env":
+  { "node": true
+  , "es6": true
+  }
+, "globals":
+  { "describe": false
+  , "it": false
+  , "afterEach": false
+  , "before": false
+  , "beforeEach": false
+  }
+}
