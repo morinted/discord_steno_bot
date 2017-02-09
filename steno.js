@@ -258,8 +258,6 @@ const normalize = rawSteno => {
 const normalizeUrlSafe = rawSteno => {
   let normalized = normalize(rawSteno) || ''
   normalized = normalized.replace(/\//g, '_')
-  normalized = normalized.replace(/\*/g, 'star')
-  normalized = normalized.replace(/#/g, 'num')
   return normalized
 }
 

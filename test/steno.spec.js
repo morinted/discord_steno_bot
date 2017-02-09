@@ -63,8 +63,8 @@ describe('steno', function() {
     })
   })
   describe('#normalizeUrlSafe()', function() {
-    it('should replace dangerous characters', () => {
-      assert.equal('numSTstar_TED', normalizeUrlSafe('12*/TED'))
+    it('should not replace some special characters', () => {
+      assert.equal('#ST*_TED', normalizeUrlSafe('12*/TED'))
     })
     it('should work with multistroke', () => {
       assert.equal('WOEFL_WORBG_PWOT', normalizeUrlSafe('WOEFL/WORK/BOT'))
