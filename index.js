@@ -1,5 +1,7 @@
 const Discord = require('discord.js')
-const stenoToBuffer = require('./steno.js').stenoToBuffer
+const Steno = require('./steno.js')
+const stenoToBuffer = Steno.stenoToBuffer
+const normalizeUrlSafe = Steno.normalizeUrlSafe
 const token = require('./token').token // Need a token.json with: { "token": "TOKEN HERE" }
 
 const bot = new Discord.Client()
@@ -23,7 +25,7 @@ bot.on('message', message => {
       console.log('Processing ', steno)
       const buffer = stenoToBuffer(steno)
       if (buffer) {
-        message.channel.sendFile(buffer)
+        message.channel.sendFile(buffer, normalizeUrlSafe(steno) + '.png')
       } else {
         message.react('❓')
       }

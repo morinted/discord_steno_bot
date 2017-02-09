@@ -255,6 +255,14 @@ const normalize = rawSteno => {
   return strokesToString(toStrokes(rawSteno))
 }
 
+const normalizeUrlSafe = rawSteno => {
+  let normalized = normalize(rawSteno) || ''
+  normalized = normalized.replace(/\//g, '_')
+  normalized = normalized.replace(/\*/g, 'star')
+  normalized = normalized.replace(/#/g, 'num')
+  return normalized
+}
+
 const stenoToBuffer = rawSteno => {
   return strokesToBuffer(toStrokes(rawSteno))
 }
@@ -265,4 +273,5 @@ module.exports =
   , strokesToString
   , stenoToBuffer
   , Stroke
+  , normalizeUrlSafe
   }

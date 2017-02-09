@@ -2,6 +2,7 @@ const assert = require('assert')
 const steno = require('../steno')
 const Stroke = steno.Stroke
 const normalize = steno.normalize
+const normalizeUrlSafe = steno.normalizeUrlSafe
 const stenoToBuffer = steno.stenoToBuffer
 
 describe('steno', function() {
@@ -59,6 +60,14 @@ describe('steno', function() {
         )
       tests.forEach((given, expected) =>
         assert.equal(expected, normalize(given)))
+    })
+  })
+  describe('#normalizeUrlSafe()', function() {
+    it('should replace dangerous characters', () => {
+      assert.equal('numSTstar_TED', normalizeUrlSafe('12*/TED'))
+    })
+    it('should work with multistroke', () => {
+      assert.equal('WOEFL_WORBG_PWOT', normalizeUrlSafe('WOEFL/WORK/BOT'))
     })
   })
   describe('Stroke', () => {
