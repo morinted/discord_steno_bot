@@ -11,13 +11,17 @@ bot.on('ready', () => {
 })
 
 const stenoGroups = /`([A-Z#\d\/ \*-]+)`/g
+const stenoGroupsTicksOptional = /`?([A-Z#\d\/ \*-]+)`?/g
 
 bot.on('message', message => {
   try {
     const content = message.content
     const channel = message.channel.name
-    const summoned = channel === 'learners' || content.startsWith('!')
-    let steno = content.match(stenoGroups)
+    const isDM = message.channel.type === 'dm'
+
+    const summoned =
+      channel === 'learners' || content.startsWith('!') || isDM
+    let steno = content.match(isDM ? stenoGroupsTicksOptional : stenoGroups)
     if (steno && summoned) {
       if (Array.isArray(steno)) {
         steno = steno.join(' ')
@@ -25,7 +29,11 @@ bot.on('message', message => {
       console.log('Processing ', steno)
       const buffer = stenoToBuffer(steno)
       if (buffer) {
-        message.channel.sendFile(buffer, normalizeUrlSafe(steno) + '.png')
+        message.channel.send(
+          new Discord.Attachment(
+            buffer, normalizeUrlSafe(steno) + '.png'
+          )  
+        )
       } else {
         message.react('❓')
       }
