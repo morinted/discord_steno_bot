@@ -1,8 +1,10 @@
-const Discord = require("discord.js");
-const Steno = require("./steno.js");
-const stenoToBuffer = Steno.stenoToBuffer;
-const normalizeUrlSafe = Steno.normalizeUrlSafe;
-const token = require("./token").token; // Need a token.json with: { "token": "TOKEN HERE" }
+import Discord from "discord.js";
+import { Stroke, stenoToBuffer, normalizeUrlSafe } from "./steno.js"
+import { lookup } from './lookup.js'
+
+import { readFileSync } from 'fs';
+// Need a token.json with: { "token": "TOKEN HERE" }
+const { token } = JSON.parse(readFileSync(new URL('./token.json', import.meta.url)));
 
 const bot = new Discord.Client();
 
@@ -13,14 +15,21 @@ bot.on("ready", () => {
 const stenoGroups = /`([A-Z#\d\/ \*-]+)`/g;
 const stenoGroupsTicksOptional = /`?([A-Z#\d\/ \*-]+)`?/g;
 
-bot.on("message", (message) => {
+bot.on("message", async (message) => {
   try {
     const content = message.content;
     const channel = message.channel.name;
     const isDM = message.channel.type === "dm";
 
     if (content.startsWith("!lookup")) {
-      // TODO
+      const searchTerm = content.split(' ').slice(1).join(' ')
+      const results = await lookup(searchTerm)
+      message.channel.send({
+        embed: {
+            color: 0x3503FF,
+            description: results
+        }
+      })
       return;
     }
 

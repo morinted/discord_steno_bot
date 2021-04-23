@@ -1,4 +1,4 @@
-const Canvas = require("canvas");
+import Canvas from "canvas";
 
 const colors = {
   unpressed: {
@@ -40,7 +40,7 @@ const keys = [
   "Z",
 ];
 
-class Stroke {
+export class Stroke {
   constructor(rawSteno) {
     this.isValid = false;
     rawSteno = rawSteno.toLowerCase();
@@ -276,7 +276,7 @@ const normalizeStroke = (rawStroke) => {
   };
 };
 
-const strokesToString = (strokes) =>
+export const strokesToString = (strokes) =>
   strokes.map((stroke) => stroke.toString()).join("/");
 
 const strokesToBuffer = (strokes) => {
@@ -296,7 +296,7 @@ const strokesToBuffer = (strokes) => {
   return buffer;
 };
 
-const toStrokes = (rawSteno) => {
+export const toStrokes = (rawSteno) => {
   rawSteno = rawSteno.toLowerCase();
   return rawSteno
     .split(/(?: |\/)/)
@@ -305,25 +305,17 @@ const toStrokes = (rawSteno) => {
     .filter((stroke) => stroke.isValid);
 };
 
-const normalize = (rawSteno) => {
+export const normalize = (rawSteno) => {
   return strokesToString(toStrokes(rawSteno));
 };
 
-const normalizeUrlSafe = (rawSteno) => {
+export const normalizeUrlSafe = (rawSteno) => {
   let normalized = normalize(rawSteno) || "";
   normalized = normalized.replace(/\//g, "_").replace("#", "num");
   return normalized;
 };
 
-const stenoToBuffer = (rawSteno) => {
+export const stenoToBuffer = (rawSteno) => {
   return strokesToBuffer(toStrokes(rawSteno));
 };
 
-module.exports = {
-  normalize,
-  toStrokes,
-  strokesToString,
-  stenoToBuffer,
-  Stroke,
-  normalizeUrlSafe,
-};
