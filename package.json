@@ -13,7 +13,9 @@
     "type": "git",
     "url": "git+https://github.com/morinted/discord_steno_bot.git"
   },
-  "engines": { "node": "12.x" },
+  "engines": {
+    "node": "14.x"
+  },
   "keywords": [
     "steno",
     "stenography",
@@ -36,6 +38,7 @@
   "dependencies": {
     "canvas": "^2.7.0",
     "discord.js": "^12.5.3",
+    "dotenv": "^8.2.0",
     "node-fetch": "^2.6.1",
     "tabletojson": "^2.0.6"
   }

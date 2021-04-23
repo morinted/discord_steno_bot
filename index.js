@@ -1,10 +1,12 @@
+import { config } from 'dotenv'
+config()
 import Discord from "discord.js";
 import { Stroke, stenoToBuffer, normalizeUrlSafe } from "./steno.js"
 import { lookup } from './lookup.js'
 
 import { readFileSync } from 'fs';
-// Need a token.json with: { "token": "TOKEN HERE" }
-const { token } = JSON.parse(readFileSync(new URL('./token.json', import.meta.url)));
+
+const token = process.env.token
 
 const bot = new Discord.Client();
 

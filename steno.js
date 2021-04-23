@@ -1,5 +1,7 @@
 import Canvas from "canvas";
 
+Canvas.registerFont("./assets/pt_mono.ttf", { family: "ptmono" });
+
 const colors = {
   unpressed: {
     outline: "#733DAB",
@@ -86,7 +88,7 @@ export class Stroke {
   }
 
   toCanvas() {
-    const scale = 4;
+    const scale = 2;
     const rowH = 18 * scale;
     const colW = 13 * scale;
     const rowPad = 3 * scale;
@@ -142,10 +144,10 @@ export class Stroke {
         ? colors.pressed.label
         : colors.unpressed.label;
       ctx.lineWidth = 1 * scale;
-      ctx.font = `${13 * scale}px monospace`;
+      ctx.font = `${12 * scale}px "ptmono"`;
       if (symbol === "#") {
         // Silly number bar doesn't look right.
-        ctx.font = `${8 * scale}px monospace`;
+        ctx.font = `${8 * scale}px "ptmono"`;
         ctx.fillText(
           symbol.toUpperCase(),
           x + right / 2 - 8 * scale,
@@ -311,11 +313,13 @@ export const normalize = (rawSteno) => {
 
 export const normalizeUrlSafe = (rawSteno) => {
   let normalized = normalize(rawSteno) || "";
-  normalized = normalized.replace(/\//g, "_").replace("#", "num");
+  normalized = normalized
+    .replace(/\//g, "_")
+    .replace("#", "num")
+    .replace("*", "star");
   return normalized;
 };
 
 export const stenoToBuffer = (rawSteno) => {
   return strokesToBuffer(toStrokes(rawSteno));
 };
-
