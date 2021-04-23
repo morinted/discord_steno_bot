@@ -8,6 +8,15 @@ This Discord bot reads in messages written in `RAW STENO` and tries to display t
 
 Each steno layout picture seems to be about 3KB.
 
+## Development
+
+1. Clone
+1. `npm install`
+1. Create token.json, contents: `{ "token": "DISCORD_TOKEN" }`
+1. `npm start` to run bot.
+1. `npm run dev` to run bot with restart on files changed.
+1. `npm run test` to execute tests.
+
 ## Steno Bot Says…
 
 > Thanks for adding me to your server. I'm created by Ted over at https://github.com/morinted/discord_steno_bot
