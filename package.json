@@ -13,6 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/morinted/discord_steno_bot.git"
   },
+  "engines": { "node": "12.x" },
   "keywords": [
     "steno",
     "stenography",
